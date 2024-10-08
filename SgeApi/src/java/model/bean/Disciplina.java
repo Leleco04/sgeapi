@@ -5,6 +5,8 @@
  */
 package model.bean;
 
+import java.util.List;
+
 /**
  *
  * @author aluno
@@ -45,7 +47,5 @@ public class Disciplina {
 
     public void setArea(Area area) {
         this.area = area;
-    }
-    
-    
+    } 
 }

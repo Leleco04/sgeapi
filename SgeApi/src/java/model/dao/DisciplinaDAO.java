@@ -21,47 +21,40 @@ import model.bean.Disciplina;
  */
 public class DisciplinaDAO {
 
-    public List<Disciplina> lerDisciplinas() { // Método que retorna uma lista de objetos Disciplina
-        List<Disciplina> lista = new ArrayList(); // Cria uma nova lista para armazenar as disciplinas
+    public List<Disciplina> lerDisciplinas() { 
+        List<Disciplina> lista = new ArrayList(); 
         try {
-            Connection conn = Conexao.conectar(); // Estabelece uma conexão com o banco de dados
-            PreparedStatement stmt = null; // Declara uma variável para o PreparedStatement
-            ResultSet rs = null; // Declara uma variável para armazenar o resultado da consulta
+            Connection conn = Conexao.conectar(); 
+            PreparedStatement stmt = null;
+            ResultSet rs = null;
 
-            // Prepara a consulta SQL para selecionar os dados das disciplinas e suas áreas associadas
             stmt = conn.prepareStatement("SELECT dis.id_disciplina, dis.nome_disciplina,\n"
                     + "area.id_area AS id_area, area.nome AS nome_area,\n"
                     + "area.descricao AS descricao_area\n"
                     + "FROM disciplina AS dis\n"
                     + "INNER JOIN area ON dis.fk_id_area = area.id_area;");
 
-            // Executa a consulta e armazena o resultado em rs
             rs = stmt.executeQuery();
 
-            // Itera sobre cada linha do resultado da consulta
             while (rs.next()) {
-                Disciplina dis = new Disciplina(); // Cria uma nova instância de Disciplina
+                Disciplina dis = new Disciplina(); 
 
-                // Preenche os atributos da disciplina com os dados retornados da consulta
-                dis.setId_disciplina(rs.getInt("id_disciplina")); // Define o ID da disciplina
-                dis.setNome_disciplina(rs.getString("nome_disciplina")); // Define o nome da disciplina
+                dis.setId_disciplina(rs.getInt("id_disciplina")); 
+                dis.setNome_disciplina(rs.getString("nome_disciplina")); 
 
-                // Início do objeto Area
-                Area area = new Area(); // Cria uma nova instância de Area
-                area.setId(rs.getInt("id_area")); // Define o ID da área
-                area.setNome(rs.getString("nome_area")); // Define o nome da área
-                area.setDescricao(rs.getString("descricao_area")); // Define a descrição da área
+                Area area = new Area(); 
+                area.setId(rs.getInt("id_area")); 
+                area.setNome(rs.getString("nome_area")); 
+                area.setDescricao(rs.getString("descricao_area")); 
 
-                // Associa a área ao objeto disciplina
                 dis.setArea(area);
 
-                // Adiciona a disciplina preenchida à lista
                 lista.add(dis);
             }
-        } catch (SQLException e) { // Captura qualquer SQLException que possa ocorrer durante a execução
-            e.printStackTrace(); // Imprime a pilha de erros para diagnóstico
+        } catch (SQLException e) { 
+            e.printStackTrace(); 
         }
-        return lista; // Retorna a lista de disciplinas
+        return lista; 
     }
 
     public Disciplina disciplinaEspecifica(int id) {

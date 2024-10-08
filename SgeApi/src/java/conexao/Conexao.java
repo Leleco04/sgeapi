@@ -13,12 +13,12 @@ import java.sql.DriverManager;
  * @author aluno
  */
 public class Conexao {
-    private static final String url = "jdbc:mysql://localhost:3306/projeto_sge?useSSL=false";
+    private static final String url = "jdbc:mysql://localhost:3306/projeto_sge";
     private static final String usuario = "root";
     private static final String senha = "";
     
     public static Connection conectar() {
-        Connection conn =null;
+        Connection conn = null;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection(url, usuario, senha);

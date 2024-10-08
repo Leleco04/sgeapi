@@ -19,7 +19,6 @@ public class Professor {
     private String cpf;
     private String imagem;
     private List<Disciplina> disciplina;
-    private List<Area> area;
 
     public Professor() {
     }
