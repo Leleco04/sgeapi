@@ -69,24 +69,19 @@ public class DisciplinaController extends HttpServlet {
         
          String url = request.getServletPath();
         
-      if (url.equals("/disciplinas")) { // Verifica se a URL solicitada é "/disciplinas"
+      if (url.equals("/disciplinas")) { 
 
-            response.setContentType("application/JSON"); // Define o tipo de conteúdo da resposta como JSON
-            response.setCharacterEncoding("UTF-8"); // Define a codificação de caracteres da resposta como UTF-8
+            response.setContentType("application/JSON"); 
+            response.setCharacterEncoding("UTF-8"); 
 
-            // Cria um HashMap para armazenar a lista de disciplinas
             Map<String, List<Disciplina>> res = new HashMap<String, List<Disciplina>>();
 
-            // Adiciona ao HashMap uma entrada com a chave "disciplinas" e o valor sendo a lista de disciplinas retornada pelo método lerDisciplinas() da classe DisciplinaDAO
             res.put("disciplinas", new DisciplinaDAO().lerDisciplinas());
 
-            // Obtém um PrintWriter a partir da resposta para enviar dados de volta ao cliente
             PrintWriter out = response.getWriter();
 
-            // Converte o HashMap res para JSON e escreve na resposta
             out.write(conversor.toJson(res));
 
-            // Assegura que todos os dados foram enviados ao cliente
             out.flush();
         } else if(url.equals("/disciplina")){
             

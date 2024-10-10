@@ -19,23 +19,35 @@ import model.bean.Professor;
  * @author Senai
  */
 public class ProfessorDAO {
-    
-    public List<Professor> lerProfessor(){
-        List<Professor> listaProfessor = new ArrayList();
-        
+
+    public List<Professor> lerProfessores() {
+        List<Professor> listaProfessores = new ArrayList();
+
         try {
             Connection conexao = Conexao.conectar();
             PreparedStatement stmt = null;
             ResultSet rs = null;
-            
-            stmt = conexao.prepareStatement("");
+
+            stmt = conexao.prepareStatement("SELECT * FROM professor");
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Professor professor = new Professor();
+                professor.setId_professor(rs.getInt("id_professor"));
+                professor.setNome(rs.getString("nome"));
+                professor.setSobrenome(rs.getString("sobrenome"));
+                professor.setCpf(rs.getString("cpf"));
+                professor.setImagem(rs.getString("imagem"));
+                professor.setDisciplina(new DisciplinaDAO().lerDisciplinasProfessores(rs.getInt("id_professor")));
+                listaProfessores.add(professor);
+            }
+           
             
         } catch (SQLException e) {
             e.printStackTrace();
         }
         
-        return listaProfessor;
-    }
-    
-    
+        return listaProfessores;
+        
+    }   
 }
